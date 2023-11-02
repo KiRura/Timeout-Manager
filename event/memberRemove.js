@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Client, EmbedBuilder, Events, GuildMember } from 'discord.js'
+import { Client, EmbedBuilder, Events, GuildMember, PermissionFlagsBits } from 'discord.js'
 import fs from 'fs'
 import functions from '../functions.js'
 import data from '../data.js'
@@ -25,13 +25,18 @@ export default {
       const embed = new EmbedBuilder()
         .setAuthor({ name: `${member.displayName} | ${member.id}` })
         .setThumbnail(functions.avatarToURL(member.user))
-        .setDescription(`サーバー参加日: ${functions.dateToString(member.joinedAt)}(<t:${member.joinedTimestamp}:R>)\nアカウント作成日: ${functions.dateToString(member.user.createdAt)}(<t:${member.user.createdTimestamp}:R>)\nプロフィール: <@${member.id}>`)
+        .setDescription(`サーバー参加日: ${functions.dateToString(member.joinedAt)}\nアカウント作成日: ${functions.dateToString(member.user.createdAt)}\nプロフィール: <@${member.id}>`)
         .setColor(member.roles.color?.color ? member.roles.color.color : data.greenColor)
 
       if (guild.banTimeoutedMemberRemoved) {
-        if (!member.bannable) {
+        if (!member.guild.members.me.permissions.has(PermissionFlagsBits.BanMembers)) {
           embed
-            .setTitle('権限の関係によりBANできませんでした。')
+            .setTitle('BANの権限が無いためBANができませんでした。')
+            .setColor(data.redColor)
+          return await channel.send({ embeds: [embed] }).catch(_error => {})
+        } else if (!member.bannable) {
+          embed
+            .setTitle('上位ロールの人だったためBANできませんでした。')
             .setColor(data.redColor)
           return await channel.send({ embeds: [embed] }).catch(_error => {})
         }

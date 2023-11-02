@@ -5,7 +5,7 @@ import fs from 'fs'
 
 export default {
   async googlePing () {
-    return await ping.promise.probe('8.8.8.8')
+    return (await ping.promise.probe('8.8.8.8')).time
   },
   /**
    * @param {Client} client

@@ -26,7 +26,7 @@ export default {
           },
           {
             name: 'Ping Google (8.8.8.8)',
-            value: `${googlePingResult.time} ms`,
+            value: `${googlePingResult} ms`,
             inline: true
           },
           {

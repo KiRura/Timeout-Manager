@@ -25,7 +25,7 @@ export default {
     functions.writeFile('./data/guilds.json', guilds)
 
     let MembersOfignoreBot = 0
-    for (const member of (await guild.members.list()).toJSON()) {
+    for (const member of (await guild.members.fetch()).toJSON()) {
       if (!member.user.bot) MembersOfignoreBot++
     }
     const guildOwner = await guild.fetchOwner()
