@@ -1,0 +1,34 @@
+{
+  "dependencies": {
+    "discord.js": "^14.13.0",
+    "dotenv": "^16.3.1",
+    "ping": "^0.4.4",
+    "tslog": "^4.9.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.52.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-n": "^16.2.0",
+    "eslint-plugin-promise": "^6.1.1"
+  },
+  "name": "timeout-manager",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "node main.js"
+  },
+  "author": "KiRura",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KiRura/timeout-manager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KiRura/timeout-manager/issues"
+  },
+  "homepage": "https://github.com/KiRura/timeout-manager#readme",
+  "description": ""
+}
