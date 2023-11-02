@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { Logger } from 'tslog'
 import functions from '../functions.js'
-import { Client, Events } from 'discord.js'
+import { Client, EmbedBuilder, Events } from 'discord.js'
 import fs from 'fs'
+import data from '../data.js'
 const logger = new Logger({ hideLogPositionForProduction: true })
 
 export default {
@@ -27,6 +28,15 @@ export default {
 
     logger.info('setting commands...')
     await client.application.commands.set(registCommands)
+
+    await (await (await client.guilds.fetch('1099309562781245440')).channels.fetch('1146562994688503999')).send({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle(`${client.user.displayName}が起動しました。`)
+          .setFooter({ text: functions.dateToString(new Date()) })
+          .setColor(data.mutaoColor)
+      ]
+    })
 
     logger.info(`${client.user.displayName} ALL READY`)
   }
