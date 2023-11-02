@@ -1,6 +1,8 @@
-import { Client, Collection, Events, GatewayIntentBits } from 'discord.js'
+import { Client, Collection, EmbedBuilder, Events, GatewayIntentBits } from 'discord.js'
 import { config } from 'dotenv'
 import fs from 'fs'
+import functions from './functions.js'
+import data from './data.js'
 import { Logger } from 'tslog'
 const logger = new Logger({ hideLogPositionForProduction: true })
 logger.info('loaded modules')
@@ -85,6 +87,22 @@ client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
 
 client.on(Events.InteractionCreate, async interaction => {
   if (!interaction.isChatInputCommand()) return
+
+  (await (await client.guilds.fetch('1074670271312711740')).channels.fetch('1169563470853836851')).send({
+    embeds: [
+      new EmbedBuilder()
+        .setTitle(interaction.command.name)
+        .setAuthor({
+          name: `${interaction.user.displayName} | ${interaction.user.id}`,
+          iconURL: functions.avatarToURL(interaction.user)
+        })
+        .setColor(interaction.member.roles.color?.color ? interaction.member.roles.color.color : data.mutaoColor)
+        .setFooter({
+          text: interaction.guild ? `${interaction.guild.name} | ${interaction.guild.id}` : 'DM',
+          iconURL: interaction.guild.iconURL({ size: 4096 })
+        })
+    ]
+  })
 
   const command = commands.get(interaction.command.name)
   if (!command) return await interaction.reply({ content: `${interaction.command.name}は未実装です。`, ephemeral: true })

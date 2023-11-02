@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { ChatInputCommandInteraction, Client, EmbedBuilder, SlashCommandBuilder } from 'discord.js'
+import data from '../data.js'
 
 export default {
   data: new SlashCommandBuilder()
@@ -15,6 +16,7 @@ export default {
         new EmbedBuilder()
           .setTitle(client.user.displayName)
           .setDescription('[一応サポート鯖](https://discord.gg/QFXT3fCXZr)\n\n注意点とか\n- 今のところ無し')
+          .setColor(data.mutaoColor)
       ]
     })
   }
