@@ -52,7 +52,7 @@ export default {
             inline: true
           })
         if (!reply.editable) return
-        await reply.edit({ embeds: [embed] })
+        await interaction.editReply({ embeds: [embed] })
       })
       .catch(_error => {})
   }

@@ -22,6 +22,7 @@ export default {
         guildsData.find(guildData => guildData.id === member.guild.id).noticeTimeoutedMemberRemoved = null
         return functions.writeFile('./data/guilds.json', guildsData)
       }
+      if (!channel.viewable) return
       const embed = new EmbedBuilder()
         .setAuthor({ name: `${member.displayName} | ${member.id}` })
         .setThumbnail(functions.avatarToURL(member.user))

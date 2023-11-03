@@ -96,10 +96,10 @@ client.on(Events.InteractionCreate, async interaction => {
           name: `${interaction.user.displayName} | ${interaction.user.id}`,
           iconURL: functions.avatarToURL(interaction.user)
         })
-        .setColor(interaction.member.roles.color?.color ? interaction.member.roles.color.color : data.mutaoColor)
+        .setColor(interaction.member?.roles?.color?.color ? interaction.member.roles.color.color : data.mutaoColor)
         .setFooter({
           text: interaction.guild ? `${interaction.guild.name} | ${interaction.guild.id}` : 'DM',
-          iconURL: interaction.guild.iconURL({ size: 4096 })
+          iconURL: interaction.inGuild() ? interaction.guild.iconURL({ size: 4096 }) : null
         })
     ]
   })

@@ -59,5 +59,15 @@ export default {
       return false
     }
     return true
+  },
+  /**
+   * @param {ChatInputCommandInteraction} interaction
+   */
+  async isGuild (interaction) {
+    if (!interaction.inGuild()) {
+      await interaction.reply({ content: 'サーバー内でのみ実行できます。', ephemeral: true })
+      return false
+    }
+    return true
   }
 }

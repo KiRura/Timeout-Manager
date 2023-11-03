@@ -3,7 +3,6 @@ import { ChannelType, ChatInputCommandInteraction, Client, EmbedBuilder, Permiss
 import functions from '../functions.js'
 import fs from 'fs'
 import data from '../data.js'
-import { isBooleanObject } from 'util/types'
 
 export default {
   data: new SlashCommandBuilder()
@@ -49,6 +48,7 @@ export default {
    * @param {ChatInputCommandInteraction} interaction
    */
   async execute (client, interaction) {
+    if (!(await functions.isGuild(interaction))) return
     const guildsData = JSON.parse(fs.readFileSync('./data/guilds.json'))
     if (interaction.options.getSubcommand() === 'list') {
       const guild = guildsData.find(guildData => guildData.id === interaction.guild.id)
