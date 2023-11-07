@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Logger } from 'tslog'
 import functions from '../functions.js'
-import { Client, EmbedBuilder, Events } from 'discord.js'
+import { ActivityType, Client, EmbedBuilder, Events } from 'discord.js'
 import fs from 'fs'
 import data from '../data.js'
 const logger = new Logger({ hideLogPositionForProduction: true })
@@ -14,7 +14,7 @@ export default {
    */
   async execute (client, registCommands) {
     setInterval(async () => {
-      client.user.setActivity({ name: `${(await client.guilds.fetch()).size} servers・${client.users.cache.size} users・${await functions.googlePing()} ms` })
+      client.user.setActivity({ name: `${(await client.guilds.fetch()).size} servers・${client.users.cache.size} users・${await functions.googlePing()} ms`, type: ActivityType.Custom })
     }, 30000)
 
     logger.info('finding no data generated guild...')
