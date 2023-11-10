@@ -16,7 +16,7 @@ export default {
       .setName('manage')
       .setDescription('管理')
       .addSubcommand(option => option
-        .setName('noticetimeoutedmemberremoved')
+        .setName('noticeleave')
         .setDescription('タイムアウトされたメンバーが退出した時に通知')
         .addChannelOption(option => option
           .setName('channel')
@@ -25,7 +25,7 @@ export default {
         )
       )
       .addSubcommand(option => option
-        .setName('noticetimeoutedmember')
+        .setName('noticetimeout')
         .setDescription('タイムアウト、もしくは解除されたメンバーを通知')
         .addChannelOption(option => option
           .setName('channel')
@@ -34,7 +34,7 @@ export default {
         )
       )
       .addSubcommand(option => option
-        .setName('bantimeoutedmemberremoved')
+        .setName('ban')
         .setDescription('タイムアウトされたメンバーが退出した時にそのメンバーをBANする')
         .addBooleanOption(option => option
           .setName('enable')
@@ -95,15 +95,15 @@ export default {
         .setTitle(option ? '有効化' : '無効化')
         .setColor(option ? data.greenColor : data.redColor)
 
-      if (interaction.options.getSubcommand() === 'noticetimeoutedmemberremoved') {
+      if (interaction.options.getSubcommand() === 'noticeleave') {
         guildsData.find(guildData => guildData.id === interaction.guild.id).noticeTimeoutedMemberRemoved = option
         functions.writeFile('./data/guilds.json', guildsData)
         await interaction.reply({ embeds: [createContent(embed, option, 'タイムアウトされたメンバーが退出した時に通知')] })
-      } else if (interaction.options.getSubcommand() === 'noticetimeoutedmember') {
+      } else if (interaction.options.getSubcommand() === 'noticetimeout') {
         guildsData.find(guildData => guildData.id === interaction.guild.id).noticeTimeoutMember = option
         functions.writeFile('./data/guilds.json', guildsData)
         await interaction.reply({ embeds: [createContent(embed, option, 'タイムアウト、もしくは解除されたメンバーを通知')] })
-      } else if (interaction.options.getSubcommand() === 'bantimeoutedmemberremoved') {
+      } else if (interaction.options.getSubcommand() === 'ban') {
         guildsData.find(guildData => guildData.id === interaction.guild.id).banTimeoutedMemberRemoved = option
         functions.writeFile('./data/guilds.json', guildsData)
         await interaction.reply({ embeds: [createContent(embed, option, 'タイムアウトされたメンバーが退出した時にそのメンバーをBANする')] })
