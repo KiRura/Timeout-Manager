@@ -1,4 +1,4 @@
-# timeout-manager
+# Timeout-Manager
 
 Discord BOT
 
