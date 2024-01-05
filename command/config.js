@@ -42,6 +42,14 @@ export default {
           .setRequired(true)
         )
       )
+      .addSubcommand(option => option
+        .setName('role')
+        .setDescription('タイムアウトされているメンバーにロールを付与する')
+        .addRoleOption(option => option
+          .setName('role')
+          .setDescription('ロール')
+        )
+      )
     ),
   /**
    * @param {Client} client
@@ -70,6 +78,11 @@ export default {
               name: 'タイムアウトされたメンバーが退出した時にそのメンバーをBANする',
               value: guild.banTimeoutedMemberRemoved ? 'True' : 'False',
               inline: true
+            },
+            {
+              name: 'タイムアウトされたときにそのメンバーにロールを付与する',
+              value: guild.role ? `<@&${guild.role}>` : 'False',
+              inline: true
             }
           ])
           .setColor(data.mutaoColor)
@@ -90,7 +103,7 @@ export default {
         }
       }
       if (!(await functions.hasThisMemberPermission(interaction.member, PermissionFlagsBits.Administrator, interaction))) return
-      const option = interaction.options.getChannel('channel')?.id || interaction.options.getBoolean('enable') || null
+      const option = interaction.options.getChannel('channel')?.id || interaction.options.getBoolean('enable') || interaction.options.getRole('role')?.id || null
       const embed = new EmbedBuilder()
         .setTitle(option ? '有効化' : '無効化')
         .setColor(option ? data.greenColor : data.redColor)
@@ -107,6 +120,16 @@ export default {
         guildsData.find(guildData => guildData.id === interaction.guild.id).banTimeoutedMemberRemoved = option
         functions.writeFile('./data/guilds.json', guildsData)
         await interaction.reply({ embeds: [createContent(embed, option, 'タイムアウトされたメンバーが退出した時にそのメンバーをBANする')] })
+      } else if (interaction.options.getSubcommand() === 'role') {
+        guildsData.find(guildData => guildData.id === interaction.guild.id).role = option
+        functions.writeFile('./data/guilds.json', guildsData)
+        await interaction.reply({
+          embeds: [new EmbedBuilder()
+            .setTitle(option ? '有効化' : '無効化')
+            .setDescription(option ? `<@&${option}> をタイムアウトされているメンバーに付与` : null)
+            .setColor(option ? data.greenColor : data.redColor)
+          ]
+        })
       }
     }
   }

@@ -19,6 +19,7 @@ export default {
         noticeTimeoutedMemberRemoved: null,
         noticeTimeoutMember: null,
         banTimeoutedMemberRemoved: false,
+        role: null,
         lang: 'English'
       }
     )
