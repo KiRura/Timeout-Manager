@@ -113,6 +113,7 @@ client.on(Events.InteractionCreate, async interaction => {
     logger.error(`InteractionCreate (${interaction.command.name}) Error`)
     console.error(error)
     await interaction.user.send(`エラーが発生しました。\n${error}`).catch(_error => {})
+    await (await interaction.client.users.fetch('606093171151208448')).send(`誰かがエラーを吐いた\n${error}`)
   }
 })
 
