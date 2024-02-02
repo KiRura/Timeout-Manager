@@ -62,6 +62,7 @@ client.on(Events.GuildCreate, async guild => {
   } catch (error) {
     logger.error('GuildCreate Error')
     console.error(error)
+    await functions.sendErrorLog(guild.client, null, error)
   }
 })
 
@@ -72,6 +73,7 @@ client.on(Events.GuildMemberRemove, async member => {
   } catch (error) {
     logger.error('GuildMemberRemove Error')
     console.error(error)
+    await functions.sendErrorLog(member.client, null, error)
   }
 })
 
@@ -82,6 +84,7 @@ client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
   } catch (error) {
     logger.error('GuildMemberUpdate Error')
     console.error(error)
+    await functions.sendErrorLog(newMember.client, null, error)
   }
 })
 
@@ -112,8 +115,7 @@ client.on(Events.InteractionCreate, async interaction => {
   } catch (error) {
     logger.error(`InteractionCreate (${interaction.command.name}) Error`)
     console.error(error)
-    await interaction.user.send(`エラーが発生しました。\n${error}`).catch(_error => {})
-    await (await interaction.client.users.fetch('606093171151208448')).send(`誰かがエラーを吐いた\n${error}`)
+    await functions.sendErrorLog(interaction.client, interaction.user, error)
   }
 })
 

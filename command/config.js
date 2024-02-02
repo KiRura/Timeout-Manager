@@ -60,7 +60,7 @@ export default {
     const guildsData = JSON.parse(fs.readFileSync('./data/guilds.json'))
     if (interaction.options.getSubcommand() === 'list') {
       const guild = guildsData.find(guildData => guildData.id === interaction.guild.id)
-      await interaction.reply({
+      return await interaction.reply({
         embeds: [new EmbedBuilder()
           .setTitle('サーバー設定')
           .setFields([
@@ -90,47 +90,52 @@ export default {
       })
     }
     if (interaction.options.getSubcommandGroup() === 'manage') {
-      /**
-       * @param {EmbedBuilder} embed
-       */
-      function createContent (embed, option, string) {
-        if (option === true || option === false) {
-          embed.setDescription(`${string}`)
-          return embed
-        } else {
-          embed.setDescription(`${string}${option ? `\n送信先: <#${option}>` : ''}`)
-          return embed
-        }
-      }
       if (!(await functions.hasThisMemberPermission(interaction.member, PermissionFlagsBits.Administrator, interaction))) return
-      const option = interaction.options.getChannel('channel')?.id || interaction.options.getBoolean('enable') || interaction.options.getRole('role')?.id || null
-      const embed = new EmbedBuilder()
-        .setTitle(option ? '有効化' : '無効化')
-        .setColor(option ? data.greenColor : data.redColor)
+      const option = interaction.options.getChannel('channel')?.id || interaction.options.getBoolean('enable') || interaction.options.getRole('role')?.id
 
-      if (interaction.options.getSubcommand() === 'noticeleave') {
-        guildsData.find(guildData => guildData.id === interaction.guild.id).noticeTimeoutedMemberRemoved = option
-        functions.writeFile('./data/guilds.json', guildsData)
-        await interaction.reply({ embeds: [createContent(embed, option, 'タイムアウトされたメンバーが退出した時に通知')] })
-      } else if (interaction.options.getSubcommand() === 'noticetimeout') {
-        guildsData.find(guildData => guildData.id === interaction.guild.id).noticeTimeoutMember = option
-        functions.writeFile('./data/guilds.json', guildsData)
-        await interaction.reply({ embeds: [createContent(embed, option, 'タイムアウト、もしくは解除されたメンバーを通知')] })
-      } else if (interaction.options.getSubcommand() === 'ban') {
-        guildsData.find(guildData => guildData.id === interaction.guild.id).banTimeoutedMemberRemoved = option
-        functions.writeFile('./data/guilds.json', guildsData)
-        await interaction.reply({ embeds: [createContent(embed, option, 'タイムアウトされたメンバーが退出した時にそのメンバーをBANする')] })
-      } else if (interaction.options.getSubcommand() === 'role') {
-        guildsData.find(guildData => guildData.id === interaction.guild.id).role = option
-        functions.writeFile('./data/guilds.json', guildsData)
-        await interaction.reply({
-          embeds: [new EmbedBuilder()
-            .setTitle(option ? '有効化' : '無効化')
-            .setDescription(option ? `<@&${option}> をタイムアウトされているメンバーに付与` : null)
-            .setColor(option ? data.greenColor : data.redColor)
-          ]
-        })
-      }
+      return await interaction.reply({ embeds: [createContent(interaction.options.getSubcommand(), option, interaction, guildsData)] })
     }
+    await functions.sendErrorLog(interaction.client, null, `未実装のコマンド ${interaction.command.name}`)
+    return await interaction.reply({ content: '未実装っぽいです。', ephemeral: true })
   }
+}
+
+/**
+ * @param {EmbedBuilder} embed
+ */
+function createContent (subCommandName, option, interaction, guildsData) {
+  return new EmbedBuilder()
+    .setTitle(option ? '有効化' : '無効化')
+    .setColor(option ? data.greenColor : data.redColor)
+    .setDescription(createDescriptionAndWriteFile(subCommandName, option, interaction, guildsData))
+}
+
+function createDescriptionAndWriteFile (subCommandName, option, interaction, guildsData) {
+  if (subCommandName === 'noticeleave') {
+    guildsData.find(guildData => guildData.id === interaction.guild.id).noticeTimeoutedMemberRemoved = option
+    functions.writeFile('./data/guilds.json', guildsData)
+    return 'タイムアウトされたメンバーが退出した時に通知' + channelOfToSendTo(option)
+  }
+  if (subCommandName === 'noticetimeout') {
+    guildsData.find(guildData => guildData.id === interaction.guild.id).noticeTimeoutMember = option
+    functions.writeFile('./data/guilds.json', guildsData)
+    return 'タイムアウト、もしくは解除されたメンバーを通知' + channelOfToSendTo(option)
+  }
+  if (subCommandName === 'ban') {
+    guildsData.find(guildData => guildData.id === interaction.guild.id).banTimeoutedMemberRemoved = option
+    functions.writeFile('./data/guilds.json', guildsData)
+    return 'タイムアウトされたメンバーが退出した時にそのメンバーをBANする'
+  }
+  if (subCommandName === 'role') {
+    guildsData.find(guildData => guildData.id === interaction.guild.id).role = option
+    functions.writeFile('./data/guilds.json', guildsData)
+    if (option) return `<@&${option}> をタイムアウトされているメンバーに付与`
+    return null
+  }
+  return null
+}
+
+function channelOfToSendTo (option) {
+  if (option) return `\n送信先: <#${option}>`
+  return ''
 }

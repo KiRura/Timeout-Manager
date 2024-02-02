@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { Client, GuildMember, User, ChatInputCommandInteraction } from 'discord.js'
+import { Client, GuildMember, User, ChatInputCommandInteraction, EmbedBuilder } from 'discord.js'
 import ping from 'ping'
 import fs from 'fs'
+import data from './data.js'
 
 export default {
   async googlePing () {
@@ -69,5 +70,50 @@ export default {
       return false
     }
     return true
+  },
+  /**
+   * @param {Client} client
+   * @param {User} user
+   * @param {Error} error
+   */
+  async sendErrorLog (client, user, error) {
+    const embed = new EmbedBuilder()
+      .setColor(data.redColor)
+      .setTimestamp(new Date())
+    if (!error.name || !error.message) {
+      embed
+        .setTitle('Errorじゃないっぽいエラー・例外')
+        .setDescription(String(error))
+    } else {
+      embed
+        .setTitle(error.name)
+        .setDescription(error.message + error.stack ? '```\n' + error.stack + '\n```' : '')
+    }
+    if (user) {
+      const dmChannel = await this.createDMChannel(user)
+      if (dmChannel) await dmChannel.send({ content: '開発者に以下のエラーログが送信されました。', embeds: [embed] })
+    }
+    const guild = await client.guilds.fetch('1074670271312711740')
+    const channel = await guild.channels.fetch('1202967540419002430')
+    if (!channel) {
+      await (await client.users.fetch('606093171151208448')).send('エラーをログするためのチャンネルが見当たらないぞ！')
+      return false
+    }
+    if (!channel.isTextBased() || !channel.viewable) return false
+    await channel.send({ embeds: [embed] })
+    return true
+  },
+  /**
+   * @param {User} user
+   */
+  async createDMChannel (user) {
+    if (user.dmChannel) return user.dmChannel
+    let dm
+    try {
+      dm = await user.createDM()
+    } catch (error) {
+      return null
+    }
+    return dm
   }
 }
