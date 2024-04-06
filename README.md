@@ -3,13 +3,13 @@
 Discord BOT
 
 - タイムアウトした、もしくは解除した時に通知  
-![image](https://github.com/KiRura/timeout-manager/assets/57588049/87ef58d9-8456-49e0-8a43-2240952c950d)
+  ![image](https://github.com/KiRura/timeout-manager/assets/57588049/87ef58d9-8456-49e0-8a43-2240952c950d)
 
 - タイムアウトされたメンバーが退出した時に通知  
-![image](https://github.com/KiRura/timeout-manager/assets/57588049/7cfc7ddd-093a-4b93-8721-e3907680f9e1)
+  ![image](https://github.com/KiRura/timeout-manager/assets/57588049/7cfc7ddd-093a-4b93-8721-e3907680f9e1)
 
 - タイムアウトされたメンバーが退出した時にBAN  
-![image](https://github.com/KiRura/timeout-manager/assets/57588049/69f5ec77-2981-47b1-833a-46012dc3b9ab)
+  ![image](https://github.com/KiRura/timeout-manager/assets/57588049/69f5ec77-2981-47b1-833a-46012dc3b9ab)
 
 - タイムアウトされているメンバーに指定したロールを付与する
 
