@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { Client, EmbedBuilder, Events, Guild } from "discord.js";
+import { Client, Events, Guild } from "discord.js";
 import fs from "fs";
 import functions from "../functions.js";
-import data from "../data.js";
 
 export default {
   name: Events.GuildCreate,
@@ -22,30 +21,5 @@ export default {
       lang: "English"
     });
     functions.writeFile("./data/guilds.json", guilds);
-
-    let MembersOfignoreBot = 0;
-    for (const member of (await guild.members.fetch()).toJSON()) {
-      if (!member.user.bot) MembersOfignoreBot++;
-    }
-    const guildOwner = await guild.fetchOwner();
-    await (
-      await (
-        await client.guilds.fetch("1074670271312711740")
-      ).channels.fetch("1169563456479969372")
-    ).send({
-      embeds: [
-        new EmbedBuilder()
-          .setTitle(`+ ${guild.name} | ${guild.id}`)
-          .setDescription(
-            `メンバー数: ${guild.memberCount}\nBOT除外メンバー数: ${MembersOfignoreBot}\n作成日: ${functions.dateToString(guild.createdAt)}`
-          )
-          .setColor(data.greenColor)
-          .setAuthor({
-            name: `${guildOwner.displayName} | ${guildOwner.id}`,
-            iconURL: functions.avatarToURL(guildOwner.user)
-          })
-          .setThumbnail(guild.iconURL({ size: 4096 }))
-      ]
-    });
   }
 };
