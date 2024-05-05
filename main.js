@@ -5,7 +5,6 @@ import functions from "./functions.js";
 import { Logger } from "tslog";
 
 const logger = new Logger({ hideLogPositionForProduction: true });
-logger.info("loaded modules");
 
 JSON.parse(fs.readFileSync("./data/guilds.json"));
 
@@ -21,7 +20,6 @@ for (const eventFileName of eventFiles) {
   try {
     const eventCommand = (await import(`./event/${eventFileName}`)).default;
     eventCommands.set(eventCommand.name, eventCommand);
-    logger.info(`loaded ${eventFileName}`);
   } catch (error) {
     logger.error(`cannot load ${eventFileName}`);
     console.error(error);
@@ -38,7 +36,6 @@ for (const commandFileName of commandFiles) {
     const command = (await import(`./command/${commandFileName}`)).default;
     commands.set(command.data.name, command);
     registCommands.push(command.data.toJSON());
-    logger.info(`loaded ${commandFileName}`);
   } catch (error) {
     logger.error(`cannot load ${commandFileName}`);
     console.error(error);
