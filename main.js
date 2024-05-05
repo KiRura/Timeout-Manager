@@ -7,11 +7,7 @@ import { Logger } from "tslog";
 const logger = new Logger({ hideLogPositionForProduction: true });
 logger.info("loaded modules");
 
-try {
-  JSON.parse(fs.readFileSync("./data/guilds.json"));
-} catch (error) {
-  throw new Error("guilds.jsonが正しく配置、または書かれていません。");
-}
+JSON.parse(fs.readFileSync("./data/guilds.json"));
 
 config();
 
