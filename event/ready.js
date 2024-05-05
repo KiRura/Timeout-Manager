@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { Logger } from "tslog";
 import functions from "../functions.js";
-import { ActivityType, Client, EmbedBuilder, Events } from "discord.js";
+import { ActivityType, EmbedBuilder, Events } from "discord.js";
 import fs from "fs";
 import data from "../data.js";
 const logger = new Logger({ hideLogPositionForProduction: true });
@@ -9,7 +8,7 @@ const logger = new Logger({ hideLogPositionForProduction: true });
 export default {
   name: Events.ClientReady,
   /**
-   * @param {Client<true>} client
+   * @param {import("discord.js").Client<true>} client
    * @param {[]} registCommands
    */
   async execute(client, registCommands) {
