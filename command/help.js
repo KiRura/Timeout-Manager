@@ -1,17 +1,11 @@
-/* eslint-disable no-unused-vars */
-import {
-  ChatInputCommandInteraction,
-  Client,
-  EmbedBuilder,
-  SlashCommandBuilder
-} from "discord.js";
+import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import data from "../data.js";
 
 export default {
   data: new SlashCommandBuilder().setName("help").setDescription("注意点とか"),
   /**
-   * @param {Client} client
-   * @param {ChatInputCommandInteraction} interaction
+   * @param {import("discord.js").Client} client
+   * @param {import("discord.js").ChatInputCommandInteraction} interaction
    */
   async execute(client, interaction) {
     await interaction.reply({

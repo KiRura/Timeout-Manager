@@ -43,10 +43,16 @@ export default {
     lang = lang || "Japanese";
     if (lang === "English") {
       const day = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."];
-      return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}(${day[date.getDay()]}) ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+      return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}(${
+        day[date.getDay()]
+      }) ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     } else if (lang === "Japanese") {
       const day = ["日", "月", "火", "水", "木", "金", "土"];
-      return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日(${day[date.getDay()]}) ${date.getHours()}時${date.getMinutes()}分${date.getSeconds()}秒`;
+      return `${date.getFullYear()}年${
+        date.getMonth() + 1
+      }月${date.getDate()}日(${
+        day[date.getDay()]
+      }) ${date.getHours()}時${date.getMinutes()}分${date.getSeconds()}秒`;
     }
   },
   /**
@@ -84,7 +90,7 @@ export default {
   },
   /**
    * @param {Client} client
-   * @param {User} user
+   * @param {User | null} user
    * @param {Error} error
    */
   async sendErrorLog(client, user, error) {

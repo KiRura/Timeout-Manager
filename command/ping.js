@@ -1,10 +1,4 @@
-/* eslint-disable no-unused-vars */
-import {
-  ChatInputCommandInteraction,
-  Client,
-  SlashCommandBuilder,
-  EmbedBuilder
-} from "discord.js";
+import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
 import functions from "../functions.js";
 import data from "../data.js";
 
@@ -14,8 +8,8 @@ export default {
     .setDescription("pong!")
     .setDescriptionLocalization("ja", "ピンポン"),
   /**
-   * @param {Client} client
-   * @param {ChatInputCommandInteraction} interaction
+   * @param {import("discord.js").Client} client
+   * @param {import("discord.js").ChatInputCommandInteraction} interaction
    */
   async execute(client, interaction) {
     const googlePingResult = await functions.googlePing();
@@ -57,6 +51,8 @@ export default {
         if (!reply.editable) return;
         await interaction.editReply({ embeds: [embed] });
       })
-      .catch(_error => {});
+      .catch(async error => {
+        await functions.sendErrorLog(interaction.client, null, error);
+      });
   }
 };
