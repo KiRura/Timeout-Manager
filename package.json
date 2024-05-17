@@ -24,8 +24,7 @@
   "homepage": "https://github.com/KiRura/timeout-manager#readme",
   "description": "",
   "devDependencies": {
-    "@eslint/js": "^9.2.0",
-    "eslint": "^9.2.0",
+    "@biomejs/biome": "^1.7.3",
     "globals": "^15.1.0"
   }
 }
