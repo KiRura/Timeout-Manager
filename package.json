@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "discord.js": "^14.15.2",
+    "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",
     "ping": "^0.4.4",
     "tslog": "^4.9.2"
@@ -24,7 +24,7 @@
   "homepage": "https://github.com/KiRura/timeout-manager#readme",
   "description": "",
   "devDependencies": {
-    "@biomejs/biome": "^1.7.3",
-    "globals": "^15.2.0"
+    "@biomejs/biome": "^1.8.0",
+    "globals": "^15.3.0"
   }
 }
