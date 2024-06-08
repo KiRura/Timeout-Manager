@@ -11,13 +11,18 @@ export default {
 	 * @param {[]} registCommands
 	 */
 	async execute(client, registCommands) {
-		setInterval(async () => {
+		async function setAc() {
 			client.user.setActivity({
 				name: `${(await client.guilds.fetch()).size} servers・${
 					client.users.cache.size
 				} users・${await functions.googlePing()} ms`,
 				type: ActivityType.Custom,
 			});
+		}
+
+		await setAc();
+		setInterval(async () => {
+			await setAc();
 		}, 30000);
 
 		for (const guild of (await client.guilds.fetch()).toJSON()) {
