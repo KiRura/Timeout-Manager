@@ -1,12 +1,12 @@
+import fs from "node:fs";
 import {
 	EmbedBuilder,
 	Events,
 	GuildMember,
 	PermissionFlagsBits,
 } from "discord.js";
-import fs from "node:fs";
-import functions from "../functions.js";
 import data from "../data.js";
+import functions from "../functions.js";
 
 export default {
 	name: Events.GuildMemberRemove,

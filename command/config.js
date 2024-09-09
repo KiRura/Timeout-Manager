@@ -1,12 +1,12 @@
+import fs from "node:fs";
 import {
 	ChannelType,
 	EmbedBuilder,
 	PermissionFlagsBits,
 	SlashCommandBuilder,
 } from "discord.js";
-import functions from "../functions.js";
-import fs from "node:fs";
 import data from "../data.js";
+import functions from "../functions.js";
 
 export default {
 	data: new SlashCommandBuilder()

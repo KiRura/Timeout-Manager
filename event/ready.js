@@ -1,7 +1,7 @@
-import functions from "../functions.js";
-import { ActivityType, EmbedBuilder, Events } from "discord.js";
 import fs from "node:fs";
+import { ActivityType, EmbedBuilder, Events } from "discord.js";
 import data from "../data.js";
+import functions from "../functions.js";
 import { logger } from "../main.js";
 
 export default {

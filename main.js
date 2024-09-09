@@ -1,8 +1,8 @@
+import fs from "node:fs";
 import { Client, Collection, Events, GatewayIntentBits } from "discord.js";
 import { config } from "dotenv";
-import fs from "node:fs";
-import functions from "./functions.js";
 import { Logger } from "tslog";
+import functions from "./functions.js";
 
 export const logger = new Logger({ hideLogPositionForProduction: true });
 

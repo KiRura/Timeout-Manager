@@ -1,7 +1,7 @@
-import { EmbedBuilder, Events, GuildMember } from "discord.js";
 import fs from "node:fs";
-import functions from "../functions.js";
+import { EmbedBuilder, Events, GuildMember } from "discord.js";
 import data from "../data.js";
+import functions from "../functions.js";
 
 export default {
 	name: Events.GuildMemberUpdate,
