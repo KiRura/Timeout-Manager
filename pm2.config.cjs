@@ -1,5 +1,5 @@
 module.exports = {
 	name: "timeout", // Name of your application
 	script: "main.js", // Entry point of your application
-	interpreter: "/home/kirura/.bun/bin/bun", // Path to the Bun interpreter
+	interpreter: "bun", // Path to the Bun interpreter
 };

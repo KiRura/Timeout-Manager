@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "discord.js": "^14.16.3",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "ping": "^0.4.4",
     "tslog": "^4.9.3"
   },
@@ -25,7 +25,7 @@
   "description": "",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "globals": "^15.11.0"
+    "globals": "^15.13.0"
   },
   "trustedDependencies": [
     "@biomejs/biome"
