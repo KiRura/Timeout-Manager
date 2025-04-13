@@ -38,19 +38,6 @@ export default {
 
 		await client.application.commands.set(registCommands);
 
-		await (
-			await (
-				await client.guilds.fetch("1099309562781245440")
-			).channels.fetch("1146562994688503999")
-		).send({
-			embeds: [
-				new EmbedBuilder()
-					.setTitle(`${client.user.displayName}が起動しました。`)
-					.setFooter({ text: functions.dateToString(new Date()) })
-					.setColor(data.mutaoColor),
-			],
-		});
-
 		logger.info(`${client.user.displayName} ALL READY`);
 	},
 };
